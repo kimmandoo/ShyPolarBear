@@ -157,8 +157,9 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_comment_reply)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myCommentPropertyItems,
         ) { _, item ->
@@ -182,11 +183,7 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                     setReplyWriteMode(commentAuthor)
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showOtherCommentPropertyMenu(view: ImageView, commentId: Int, position: Int, commentAuthor: String) {
@@ -197,8 +194,9 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_comment_reply)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             otherCommentPropertyItems,
         ) { _, item ->
@@ -214,11 +212,7 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                     setReplyWriteMode(commentAuthor)
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showMyReplyPropertyMenu(view: ImageView, commentId: Int, feedId: Int, content: String) {
@@ -228,8 +222,9 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_delete)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myReplyPropertyItems,
         ) { _, item ->
@@ -247,11 +242,7 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                     viewModel.requestDeleteFeedReply(commentId, feedId)
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showOtherReplyPropertyMenu(view: ImageView) {
@@ -261,8 +252,9 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_block)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             otherReplyPropertyItems,
         ) { _, item ->
@@ -272,11 +264,7 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                     Toast.makeText(requireContext(), getString(com.beeeam.designsystem.R.string.features_in_preparation), Toast.LENGTH_SHORT).show()
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun changeLikeBtn(
@@ -346,8 +334,9 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
             }
         }
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             postPropertyItems,
         ) { _, item ->
@@ -369,11 +358,7 @@ class FeedDetailFragment : BaseFragment<FragmentFeedDetailBinding, FeedDetailVie
                     Toast.makeText(requireContext(), getString(com.beeeam.designsystem.R.string.features_in_preparation), Toast.LENGTH_SHORT).show()
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun moveToBack() {

@@ -39,11 +39,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":core:designsystem"))
 
-    implementation(AndroidX.CORE_KTX)
-    implementation(AndroidX.APP_COMPAT)
-    implementation(Google.MATERIAL)
-    implementation(AndroidX.FRAGMENT_KTX)
-    implementation(AndroidX.LIFECYCLE_VIEWMODEL_KTX)
     testImplementation(AndroidX.JUNIT)
     androidTestImplementation(AndroidX.EXT_JUNIT)
     androidTestImplementation(AndroidX.ESPRESSO_CORE)

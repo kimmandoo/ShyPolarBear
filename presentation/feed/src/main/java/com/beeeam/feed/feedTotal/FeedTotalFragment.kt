@@ -12,8 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.beeeam.base.BaseFragment
 import com.beeeam.feed.R
 import com.beeeam.feed.databinding.FragmentFeedTotalBinding
-import com.beeeam.util.Const.POWER_MENU_OFFSET_X
-import com.beeeam.util.Const.POWER_MENU_OFFSET_Y
 import com.beeeam.util.FeedTotalLikeBtnType
 import com.beeeam.util.infiniteScroll
 import com.beeeam.util.showLikeBtnIsLike
@@ -79,8 +77,9 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
             }
 
             ivFeedToolbarSort.setOnClickListener {
-                PowerMenuUtil.getPowerMenu(
+                PowerMenuUtil.showPowerMenu(
                     requireContext(),
+                    ivFeedToolbarSort,
                     viewLifecycleOwner,
                     feedSortItems,
                 ) { _, item ->
@@ -95,11 +94,7 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                             loadSortedFeed("best")
                         }
                     }
-                }.showAsDropDown(
-                    ivFeedToolbarSort,
-                    POWER_MENU_OFFSET_X,
-                    POWER_MENU_OFFSET_Y,
-                )
+                }
             }
 
             btnFeedPostWrite.setOnClickListener {
@@ -144,8 +139,9 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_delete)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myCommentPropertyItems,
         ) { _, item ->
@@ -163,11 +159,7 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                     viewModel.removeFeedList(position)
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showOtherPostPropertyMenu(view: ImageView) {
@@ -177,17 +169,14 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_block)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myCommentPropertyItems,
         ) { _, _ ->
             Toast.makeText(requireContext(), getString(com.beeeam.designsystem.R.string.features_in_preparation), Toast.LENGTH_SHORT).show()
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showMyBestCommentPropertyMenu(view: ImageView, commentId: Int, content: String, commentView: View) {
@@ -197,8 +186,9 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_delete)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myCommentPropertyItems,
         ) { _, item ->
@@ -211,11 +201,7 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                     commentView.isVisible = false
                 }
             }
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun showOtherBestCommentPropertyMenu(view: ImageView) {
@@ -225,17 +211,14 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_block)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myCommentPropertyItems,
         ) { _, _ ->
             Toast.makeText(requireContext(), getString(com.beeeam.designsystem.R.string.features_in_preparation), Toast.LENGTH_SHORT).show()
-        }.showAsDropDown(
-            view,
-            POWER_MENU_OFFSET_X,
-            POWER_MENU_OFFSET_Y,
-        )
+        }
     }
 
     private fun changeLikeBtn(

@@ -27,7 +27,7 @@ object Versions {
 
     const val TIMBER = "5.0.1"
 
-    const val POWER_MENU = "2.2.3"
+    const val POWER_MENU = "2.2.4"
 
     const val GLIDE = "4.15.1"
 

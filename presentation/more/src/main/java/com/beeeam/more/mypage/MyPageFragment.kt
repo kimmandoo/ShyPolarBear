@@ -92,8 +92,9 @@ class MyPageFragment :
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_delete)),
             )
 
-        PowerMenuUtil.getPowerMenu(
+        PowerMenuUtil.showPowerMenu(
             requireContext(),
+            view,
             viewLifecycleOwner,
             myPostPropertyItems,
             onItemClickListener = { position, item ->
@@ -107,11 +108,6 @@ class MyPageFragment :
                 }
             },
         )
-            .showAsDropDown(
-                view,
-                POWER_MENU_OFFSET_X,
-                POWER_MENU_OFFSET_Y,
-            )
     }
 
     private fun showNonDataText(type: FeedContentType, count: Int?) {
