@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_more"
+    app:startDestination="@+id/navigation_more">
+    <fragment
+        android:id="@+id/navigation_more"
+        android:name="com.beeeam.more.MoreFragment"
+        android:label="MoreFragment"
+        tools:layout="@layout/fragment_more">
+        <action
+            android:id="@+id/action_navigation_more_to_changeMyInfoFragment"
+            app:destination="@id/changeMyInfoFragment" />
+        <action
+            android:id="@+id/action_navigation_more_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changeMyInfoFragment"
+        android:name="com.beeeam.more.changemyinfo.ChangeMyInfoFragment"
+        android:label="ChangeMyInfoFragment"
+        tools:layout="@layout/fragment_change_my_info">
+        <argument
+            android:name="nickName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.beeeam.more.mypage.MyPageFragment"
+        android:label="MyPageFragment" />
+</navigation>

@@ -2,8 +2,6 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
 plugins {
     id("com.android.application")
-
-    // Hilt
     id("dagger.hilt.android.plugin")
 
     kotlin("android")
@@ -58,9 +56,11 @@ android {
 
 dependencies {
 
-    implementation(project(":presentation"))
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":core:designsystem"))
+    implementation(project(":core:util"))
+    implementation(project(":presentation:navigation"))
 
     implementation(AndroidX.APP_COMPAT)
     implementation(AndroidX.CORE_KTX)

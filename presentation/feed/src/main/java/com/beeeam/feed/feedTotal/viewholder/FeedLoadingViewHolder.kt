@@ -1,0 +1,11 @@
+package com.beeeam.feed.feedTotal.viewholder
+
+import androidx.recyclerview.widget.RecyclerView
+import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.shypolarbear.domain.model.feed.Feed
+
+class FeedLoadingViewHolder(private val binding: ItemFeedLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(item: Feed) {
+        binding.executePendingBindings()
+    }
+}
