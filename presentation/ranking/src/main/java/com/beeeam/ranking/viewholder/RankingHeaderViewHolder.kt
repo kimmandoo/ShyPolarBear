@@ -24,7 +24,7 @@ class RankingHeaderViewHolder(private val binding: ItemRankingHeaderBinding): Re
                 com.beeeam.designsystem.R.drawable.ic_user_base_profile,
             )
             tvRankingName.text = item.nickName
-            tvRankingPoint.text = "${item.point}P"
+            tvRankingPoint.text = "${item.point} P"
             tvRankingWiningRate.text = "${item.winningPercent}%"
         }
 

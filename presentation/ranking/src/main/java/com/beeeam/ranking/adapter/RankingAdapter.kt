@@ -34,7 +34,7 @@ class RankingAdapter :
                 tvRankingName.text = totalRanking.nickName
                 tvRankingPoint.text =
                     binding.root.context.getString(com.beeeam.designsystem.R.string.ranking_point_value, totalRanking.point)
-                tvRankingPossible.text = binding.root.context.getString(
+                tvRankingWiningRate.text = binding.root.context.getString(
                     com.beeeam.designsystem.R.string.ranking_possible_value,
                     totalRanking.winningPercent,
                 )
