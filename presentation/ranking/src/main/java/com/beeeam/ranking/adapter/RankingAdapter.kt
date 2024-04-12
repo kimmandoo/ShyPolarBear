@@ -1,4 +1,4 @@
-package com.beeeam.ranking
+package com.beeeam.ranking.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

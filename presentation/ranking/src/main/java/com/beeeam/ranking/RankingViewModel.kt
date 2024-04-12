@@ -13,7 +13,6 @@ import com.shypolarbear.domain.usecase.ranking.LoadTotalRankingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,8 +21,8 @@ class RankingViewModel @Inject constructor(
     private val loadTotalRankingUseCase: LoadTotalRankingUseCase,
 ) : BaseViewModel() {
 
-    private val _myRankingResponse = MutableLiveData<Ranking>()
-    val myRankingResponse: LiveData<Ranking> = _myRankingResponse
+    private val _myRanking = MutableLiveData<Ranking>()
+    val myRanking: LiveData<Ranking> = _myRanking
     private val _totalRankingResponse = MutableLiveData<TotalRanking>()
     val totalRankingResponse: LiveData<TotalRanking> = _totalRankingResponse
 
@@ -34,10 +33,8 @@ class RankingViewModel @Inject constructor(
 
     private fun loadMyRanking() {
         viewModelScope.launch {
-            val responseMyRanking =
-                loadMyRankingUseCase()
-            responseMyRanking.onSuccess { response ->
-                _myRankingResponse.value = response.data
+            loadMyRankingUseCase().onSuccess { response ->
+                _myRanking.value = response.data
             }
                 .onFailure { error ->
                     simpleHttpErrorCheck(error)
@@ -47,14 +44,10 @@ class RankingViewModel @Inject constructor(
 
     private fun loadTotalRanking(lastCommentId: Int? = null): Job {
         val loadJob = viewModelScope.launch {
-            val responseMyRanking =
-                loadTotalRankingUseCase(RankingScroll(lastCommentId, limit = null))
-            Timber.tag("RANKING").d("$responseMyRanking")
-
-            responseMyRanking.onSuccess { response ->
-                _totalRankingResponse.value = response.data
-                Timber.tag("RANKING").d("${_totalRankingResponse.value}")
-            }
+            loadTotalRankingUseCase(RankingScroll(lastCommentId, limit = null))
+                .onSuccess { response ->
+                    _totalRankingResponse.value = response.data
+                }
                 .onFailure { error ->
                     simpleHttpErrorCheck(error)
                 }
@@ -65,10 +58,7 @@ class RankingViewModel @Inject constructor(
     fun loadMoreRanking() {
         viewModelScope.launch {
             if (!_totalRankingResponse.value!!.last) {
-                val loadJob = loadTotalRanking(
-                    _totalRankingResponse.value!!.content.last().rankingId,
-                )
-                loadJob.join()
+                loadTotalRanking(_totalRankingResponse.value!!.content.last().rankingId).join()
             } else {
                 // isLast = true
             }
