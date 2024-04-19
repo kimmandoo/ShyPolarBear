@@ -12,38 +12,53 @@ import com.beeeam.ranking.databinding.ItemRankingMyBinding
 import com.beeeam.ranking.viewholder.RankingHeaderViewHolder
 import com.beeeam.ranking.viewholder.RankingItemViewHolder
 import com.beeeam.ranking.viewholder.RankingMyViewHolder
+import com.beeeam.ui.LoadingViewHolder
+import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.util.RankingItemType
 import com.shypolarbear.domain.model.ranking.Ranking
 
 class RankingAdapter : ListAdapter<Ranking, RecyclerView.ViewHolder>(RankingDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType) {
-            0 -> {
+            RankingItemType.HEADER.type -> {
                 RankingHeaderViewHolder(
                     ItemRankingHeaderBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false,
-                    )
+                    ),
                 )
             }
-            1 -> {
+            RankingItemType.MY_RANKING.type -> {
                 RankingMyViewHolder(
                     ItemRankingMyBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false,
-                    )
+                    ),
                 )
             }
-            else -> {
+            RankingItemType.TOTAL_ITEM.type-> {
                 RankingItemViewHolder(
                     ItemRankingBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false,
-                    )
+                    ),
                 )
+            }
+            RankingItemType.LOADING.type-> {
+                LoadingViewHolder(
+                    ItemFeedLoadingBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false,
+                    ),
+                )
+            }
+            else -> {
+                throw Exception()
             }
         }
     }
@@ -86,9 +101,11 @@ class RankingAdapter : ListAdapter<Ranking, RecyclerView.ViewHolder>(RankingDiff
 
     override fun getItemViewType(position: Int): Int {
         return when(position) {
-            0 -> 0
-            1 -> 1
-            else -> 2
+            0 -> RankingItemType.HEADER.type
+            1 -> RankingItemType.MY_RANKING.type
+            else ->
+                if (getItem(position).rankingId == 0) RankingItemType.LOADING.type
+                else RankingItemType.TOTAL_ITEM.type
         }
     }
 }

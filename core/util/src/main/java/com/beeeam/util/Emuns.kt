@@ -102,3 +102,10 @@ enum class ImageType(val type: String) {
     PROFILE("profile"),
     FEED("feed"),
 }
+
+enum class RankingItemType(val type: Int) {
+    HEADER(0),
+    MY_RANKING(1),
+    TOTAL_ITEM(2),
+    LOADING(3)
+}

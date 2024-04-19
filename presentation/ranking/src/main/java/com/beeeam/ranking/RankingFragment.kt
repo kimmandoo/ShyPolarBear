@@ -12,15 +12,15 @@ import com.beeeam.stickyheaderrecyclerview.SectionCallBack
 import com.beeeam.util.infiniteScroll
 import com.shypolarbear.domain.model.ranking.Ranking
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class RankingFragment :
     BaseFragment<FragmentRankingBinding, RankingViewModel>(R.layout.fragment_ranking) {
     override val viewModel: RankingViewModel by viewModels()
     private val rankingAdapter = RankingAdapter()
+    private val items: MutableList<Ranking> = mutableListOf(Ranking())
+
     override fun initView() {
-        val items: MutableList<Ranking> = mutableListOf(Ranking())
 
         viewModel.apply {
             loadRankingData()
@@ -31,10 +31,11 @@ class RankingFragment :
             totalRankingResponse.observe(viewLifecycleOwner) { totalRanking ->
                 totalRanking?.let {
                     binding.apply {
+                        if(items.size > 2)  items.removeLast()
                         totalRanking.content.forEach { ranking ->
                             items.add(ranking)
                         }
-                        Timber.d("아이템 개수: ${items.size}")
+                        if(!totalRanking.last) items.add(Ranking())
                         rankingAdapter.submitList(items.toList())
                         rankingProgressbar.isVisible = false
                     }
