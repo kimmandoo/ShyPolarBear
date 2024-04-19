@@ -18,9 +18,10 @@
             android:indeterminate="true"
             app:indicatorColor="@color/Blue_02"
             app:indicatorSize="36dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:trackThickness="3dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

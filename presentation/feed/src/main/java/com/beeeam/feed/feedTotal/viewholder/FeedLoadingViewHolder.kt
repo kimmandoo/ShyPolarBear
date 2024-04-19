@@ -5,7 +5,7 @@ import com.beeeam.ui.databinding.ItemFeedLoadingBinding
 import com.shypolarbear.domain.model.feed.Feed
 
 class FeedLoadingViewHolder(private val binding: ItemFeedLoadingBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: Feed) {
+    fun bind() {
         binding.executePendingBindings()
     }
 }

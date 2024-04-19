@@ -74,7 +74,7 @@ class FeedPostAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when {
             getItem(position).feedId == 0 -> {
-                (holder as FeedLoadingViewHolder).bind(getItem(position))
+                (holder as FeedLoadingViewHolder).bind()
             }
             getItem(position).feedImages.isNullOrEmpty() -> {
                 (holder as FeedPostNoImageViewHolder).bind(getItem(position))
