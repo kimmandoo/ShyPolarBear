@@ -56,15 +56,11 @@ class RankingAdapter : ListAdapter<Ranking, RecyclerView.ViewHolder>(RankingDiff
         }
     }
 
-    fun isHeader(position: Int) = false
-
     fun getHeaderView(list: RecyclerView, position: Int): View? {
         val lastPosition = if (position < currentList.size) position else currentList.size - 1
         for (pos in lastPosition downTo 0) {
             if (pos == 1) {
-                val binding =
-                    ItemRankingMyBinding.inflate(LayoutInflater.from(list.context), list, false)
-                binding.apply {
+                ItemRankingMyBinding.inflate(LayoutInflater.from(list.context), list, false).apply {
                     tvRankingRank.text = currentList[pos].rank.toString()
                     tvRankingName.text = currentList[pos].nickName
                     tvRankingPoint.text =

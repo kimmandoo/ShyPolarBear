@@ -15,36 +15,7 @@ class StickyHeaderItemDecoration(private val sectionCallback: SectionCallBack) :
         val currentHeader: View = sectionCallback.getHeaderView(parent, topChildPosition) ?: return
         fixLayoutSize(parent, currentHeader, topChild.measuredHeight)
 
-        val contactPoint = currentHeader.bottom
-        val childInContact: View = (getChildInContact(parent, contactPoint) ?: return)
-
-        val childAdapterPosition = parent.getChildAdapterPosition(childInContact)
-
-        if (sectionCallback.isHeader(childAdapterPosition)) {
-            moveHeader(c, currentHeader, childInContact)
-        }
         drawHeader(c, currentHeader)
-    }
-
-    private fun getChildInContact(parent: RecyclerView, contactPoint: Int): View? {
-        var childInContact: View? = null
-        for (i in 0 until parent.childCount) {
-            val child = parent.getChildAt(i)
-            if (child.bottom > contactPoint) {
-                if (child.top <= contactPoint) {
-                    childInContact = child
-                    break
-                }
-            }
-        }
-        return childInContact
-    }
-
-    private fun moveHeader(c: Canvas, currentHeader: View, nextHeader: View) {
-        c.save()
-        c.translate(0f, nextHeader.top - currentHeader.height.toFloat())
-        currentHeader.draw(c)
-        c.restore()
     }
 
     private fun drawHeader(c: Canvas, header: View) {

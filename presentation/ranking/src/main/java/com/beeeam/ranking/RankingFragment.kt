@@ -60,10 +60,6 @@ class RankingFragment :
 
     private fun getSectionCallback(): SectionCallBack {
         return object : SectionCallBack {
-            override fun isHeader(position: Int): Boolean {
-                return rankingAdapter.isHeader(position)
-            }
-
             override fun getHeaderView(list: RecyclerView, position: Int): View? {
                 return rankingAdapter.getHeaderView(list, position)
             }

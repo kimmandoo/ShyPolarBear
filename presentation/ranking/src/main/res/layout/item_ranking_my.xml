@@ -25,8 +25,7 @@
             android:id="@+id/layout_ranking_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
+            android:padding="8dp"
             android:background="@color/White_01"
             android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/tv_ranking">
@@ -71,7 +70,6 @@
             android:id="@+id/view_my_ranking_top_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
             android:background="@color/Gray_06"
             app:layout_constraintTop_toBottomOf="@+id/layout_ranking_header" />
 
