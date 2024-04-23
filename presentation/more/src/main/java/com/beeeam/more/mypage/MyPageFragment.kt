@@ -4,17 +4,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.beeeam.base.BaseFragment
-import com.beeeam.more.adapter.MyCommentAdapter
-import com.beeeam.more.adapter.MyPostAdapter
+import com.beeeam.more.mypage.adapter.MyCommentAdapter
+import com.beeeam.more.mypage.adapter.MyPostAdapter
 import com.beeeam.myinfo.R
 import com.beeeam.myinfo.databinding.FragmentMyPageBinding
-import com.beeeam.util.Const.POWER_MENU_OFFSET_X
-import com.beeeam.util.Const.POWER_MENU_OFFSET_Y
 import com.beeeam.util.FeedContentType
 import com.beeeam.util.PostProperty
 import com.beeeam.util.PowerMenuUtil
@@ -29,30 +26,30 @@ class MyPageFragment :
     override val viewModel: MyPageViewModel by viewModels()
     private lateinit var postAdapter: Adapter<ViewHolder>
     private lateinit var commentAdapter: Adapter<ViewHolder>
-    private lateinit var myFeedToDetail: NavDirections
 
     override fun initView() {
-        viewModel.loadMyFeed()
-        viewModel.myPostResponse.observe(viewLifecycleOwner) { postFeed ->
-            postFeed?.let {
-                binding.myFeedProgressbar.isVisible = false
-                if (it.count != 0) {
-                    binding.tvMyPostNonPost.isVisible = false
-                }
-                postAdapter = MyPostAdapter(postFeed.content) { feedId: Int, view: ImageView ->
-                    showMyPostPropertyMenu(view, feedId)
-                }
-                setAdapter(postAdapter, FeedContentType.POST)
-            }
-        }
-
-        viewModel.myCommentResponse.observe(viewLifecycleOwner) { commentFeed ->
-            commentFeed?.let {
-                commentAdapter = MyCommentAdapter(commentFeed.content)
-            }
-        }
 
         binding.apply {
+            viewModel.loadMyFeed()
+            viewModel.myPostResponse.observe(viewLifecycleOwner) { postFeed ->
+                postFeed?.let {
+                    myFeedProgressbar.isVisible = false
+                    if (it.count != 0) {
+                        tvMyPostNonPost.isVisible = false
+                    }
+                    postAdapter = MyPostAdapter(postFeed.content) { feedId: Int, view: ImageView ->
+                        showMyPostPropertyMenu(view, feedId)
+                    }
+                    setAdapter(postAdapter, FeedContentType.POST)
+                }
+            }
+
+            viewModel.myCommentResponse.observe(viewLifecycleOwner) { commentFeed ->
+                commentFeed?.let {
+                    commentAdapter = MyCommentAdapter(commentFeed.content)
+                }
+            }
+
             myFeedProgressbar.isVisible = true
             tvMyPostPost.isActivated = true
 
@@ -79,9 +76,11 @@ class MyPageFragment :
     }
 
     private fun setAdapter(adapter: Adapter<ViewHolder>, contentType: FeedContentType) {
-        binding.rvMyPost.adapter = adapter
-        binding.rvMyPost.infiniteScroll {
-            viewModel.loadMoreMyPost(contentType)
+        binding.apply {
+            rvMyPost.adapter = adapter
+            rvMyPost.infiniteScroll {
+                viewModel.loadMoreMyPost(contentType)
+            }
         }
     }
 
@@ -111,15 +110,17 @@ class MyPageFragment :
     }
 
     private fun showNonDataText(type: FeedContentType, count: Int?) {
-        if (type == FeedContentType.POST) {
-            binding.tvMyPostNonComment.isVisible = false
-            if (count == 0 || count == null) {
-                binding.tvMyPostNonPost.isVisible = true
-            }
-        } else {
-            binding.tvMyPostNonPost.isVisible = false
-            if (count == 0 || count == null) {
-                binding.tvMyPostNonComment.isVisible = true
+        binding.apply {
+            if (type == FeedContentType.POST) {
+                tvMyPostNonComment.isVisible = false
+                if (count == 0 || count == null) {
+                    tvMyPostNonPost.isVisible = true
+                }
+            } else {
+                tvMyPostNonPost.isVisible = false
+                if (count == 0 || count == null) {
+                    tvMyPostNonComment.isVisible = true
+                }
             }
         }
     }

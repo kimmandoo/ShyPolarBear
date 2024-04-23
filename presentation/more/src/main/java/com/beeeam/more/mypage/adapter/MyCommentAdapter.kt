@@ -1,35 +1,19 @@
-package com.beeeam.more.adapter
+package com.beeeam.more.mypage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beeeam.more.mypage.viewholder.ItemCommentViewHolder
 import com.beeeam.myinfo.databinding.ItemPageCommentBinding
 import com.beeeam.ui.LoadingViewHolder
 import com.beeeam.ui.databinding.ItemLoadingBinding
-import com.beeeam.util.GlideUtil
 import com.beeeam.util.MyFeedType
 import com.shypolarbear.domain.model.mypage.MyCommentFeed
 
 class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
     ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
-
-    inner class ItemCommentViewHolder(private val binding: ItemPageCommentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bindItems(item: MyCommentFeed) {
-            binding.apply {
-                tvItemPage.text = item.title
-                item.feedImage?.let { image ->
-                    GlideUtil.loadImage(binding.root.context, image, ivItemPage)
-                }
-                tvItemAuthor.text = item.author
-                item.authorProfileImage?.let { image ->
-                    GlideUtil.loadImage(binding.root.context, image, ivItemProfile)
-                }
-            }
-        }
-    }
 
     override fun getItemViewType(position: Int): Int {
         return if (_items[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
@@ -50,9 +34,7 @@ class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ItemCommentViewHolder) {
-            holder.bindItems(_items[position]!!)
-        }
+        (holder as ItemCommentViewHolder).bind(_items[position]!!)
     }
 
     override fun getItemCount(): Int {

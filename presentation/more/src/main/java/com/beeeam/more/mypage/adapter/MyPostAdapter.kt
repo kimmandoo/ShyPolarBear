@@ -1,4 +1,4 @@
-package com.beeeam.more.adapter
+package com.beeeam.more.mypage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,10 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beeeam.more.mypage.viewholder.ItemPostViewHolder
 import com.beeeam.myinfo.databinding.ItemPagePostBinding
 import com.beeeam.ui.LoadingViewHolder
 import com.beeeam.ui.databinding.ItemLoadingBinding
-import com.beeeam.util.GlideUtil
 import com.beeeam.util.MyFeedType
 import com.shypolarbear.domain.model.mypage.MyFeed
 
@@ -18,33 +18,6 @@ class MyPostAdapter(
     private val onMyFeedPropertyClick: (feedId: Int, view: ImageView) -> Unit = { _, _ -> },
 ) :
     ListAdapter<MyFeed, RecyclerView.ViewHolder>(MyFeedDiffCallback()) {
-
-    inner class ItemPostViewHolder(
-        private val binding: ItemPagePostBinding,
-        private val onMyFeedPropertyClick: (feedId: Int, view: ImageView) -> Unit = { _, _ -> },
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
-        private lateinit var myFeed: MyFeed
-
-        init {
-            if (::myFeed.isInitialized) {
-                binding.ivItemPostProperty.setOnClickListener {
-                    onMyFeedPropertyClick(myFeed.feedId, binding.ivItemPostProperty)
-                }
-            }
-        }
-
-        fun bindItems(item: MyFeed) {
-            myFeed = item
-            binding.apply {
-                tvItemPageTitle.text = item.title
-                GlideUtil.loadImage(binding.root.context, item.feedImage, ivItemPage)
-                ivItemPostProperty.setOnClickListener {
-                    onMyFeedPropertyClick(item.feedId, ivItemPostProperty)
-                }
-            }
-        }
-    }
 
     override fun getItemViewType(position: Int): Int {
         return if (_items[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
@@ -72,9 +45,7 @@ class MyPostAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ItemPostViewHolder) {
-            holder.bindItems(_items[position]!!)
-        }
+        (holder as ItemPostViewHolder).bind(_items[position]!!)
     }
 
     override fun getItemCount(): Int {
