@@ -31,9 +31,9 @@ class FeedReplyAdapter(
     private val parentCommentId: Int,
 ) : ListAdapter<ChildComment, RecyclerView.ViewHolder>(FeedReplyDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             FeedCommentViewType.NORMAL.commentType -> {
-                return FeedReplyNormalViewHolder(
+                FeedReplyNormalViewHolder(
                     ItemFeedReplyNormalBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -47,7 +47,7 @@ class FeedReplyAdapter(
             }
 
             FeedCommentViewType.DELETE.commentType -> {
-                return FeedReplyDeleteViewHolder(
+                FeedReplyDeleteViewHolder(
                     ItemFeedReplyDeleteBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,

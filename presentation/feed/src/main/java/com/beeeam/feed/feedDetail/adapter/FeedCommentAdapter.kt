@@ -36,13 +36,13 @@ class FeedCommentAdapter(
 ) : ListAdapter<Comment, RecyclerView.ViewHolder>(FeedCommentDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        return when (viewType) {
             FeedCommentViewType.LOADING.commentType -> {
-                return FeedCommentLoadingViewHolder(ItemFeedCommentLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+                FeedCommentLoadingViewHolder(ItemFeedCommentLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
 
             FeedCommentViewType.NORMAL.commentType -> {
-                return FeedCommentNormalViewHolder(
+                FeedCommentNormalViewHolder(
                     ItemFeedCommentNormalBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
@@ -58,7 +58,7 @@ class FeedCommentAdapter(
             }
 
             FeedCommentViewType.DELETE.commentType -> {
-                return FeedCommentDeleteViewHolder(
+                FeedCommentDeleteViewHolder(
                     ItemFeedCommentDeleteBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
