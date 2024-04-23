@@ -28,7 +28,6 @@ class FeedDetailNoImagePostViewHolder(
     private var post: Feed = Feed()
 
     init {
-
         binding.apply {
             btnFeedDetailNoImageLike.setOnClickListener {
                 onBtnLikeClick(
@@ -60,19 +59,20 @@ class FeedDetailNoImagePostViewHolder(
     }
 
     private fun setFeedPost(feedDetail: Feed) {
-        binding.tvFeedDetailNoImageUserNickname.text = feedDetail.author
-        binding.tvFeedDetailNoImagePostingTime.text = feedDetail.createdDate
-        binding.tvFeedDetailNoImageLikeCnt.text = feedDetail.likeCount.toString()
-        binding.tvFeedDetailNoImageTitle.text = feedDetail.title
-        binding.tvFeedDetailNoImageContent.text = feedDetail.content
-        binding.tvFeedDetailNoImageReplyCnt.text = feedDetail.commentCount.toString()
+        binding.apply {
+            tvFeedDetailNoImageUserNickname.text = feedDetail.author
+            tvFeedDetailNoImagePostingTime.text = feedDetail.createdDate
+            tvFeedDetailNoImageLikeCnt.text = feedDetail.likeCount.toString()
+            tvFeedDetailNoImageTitle.text = feedDetail.title
+            tvFeedDetailNoImageContent.text = feedDetail.content
+            tvFeedDetailNoImageReplyCnt.text = feedDetail.commentCount.toString()
+            btnFeedDetailNoImageLike.showLikeBtnIsLike(feedDetail.isLike, btnFeedDetailNoImageLike)
 
-        binding.btnFeedDetailNoImageLike.showLikeBtnIsLike(feedDetail.isLike, binding.btnFeedDetailNoImageLike)
-
-        if (!feedDetail.authorProfileImage.isNullOrBlank()) {
-            GlideUtil.loadImage(itemView.context, feedDetail.authorProfileImage, binding.ivFeedDetailNoImageUserProfile)
-        } else {
-            GlideUtil.loadImage(itemView.context, url = null, view = binding.ivFeedDetailNoImageUserProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            if (!feedDetail.authorProfileImage.isNullOrBlank()) {
+                GlideUtil.loadImage(itemView.context, feedDetail.authorProfileImage, ivFeedDetailNoImageUserProfile)
+            } else {
+                GlideUtil.loadImage(itemView.context, url = null, view = ivFeedDetailNoImageUserProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            }
         }
     }
 }

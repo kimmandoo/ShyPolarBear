@@ -32,34 +32,35 @@ class FeedCommentNormalViewHolder(
     private var comment: Comment = Comment()
 
     init {
-        binding.btnFeedCommentNormalLike.setOnClickListener {
-            onBtnLikeClick(
-                binding.btnFeedCommentNormalLike,
-                comment.isLike,
-                comment.likeCount,
-                binding.tvFeedCommentNormalLikeCnt,
-                comment.commentId,
-                0,
-                FeedDetailLikeBtnType.COMMENT_LIKE_BTN,
-            )
-        }
-
-        binding.ivFeedCommentNormalProperty.setOnClickListener {
-            when (comment.isAuthor) {
-                true ->
-                    onMyCommentPropertyClick(binding.ivFeedCommentNormalProperty, comment.commentId, adapterPosition, comment.authorNickname, comment.content)
-                false ->
-                    onOtherCommentPropertyClick(binding.ivFeedCommentNormalProperty, comment.commentId, adapterPosition, comment.authorNickname)
+        binding.apply {
+            btnFeedCommentNormalLike.setOnClickListener {
+                onBtnLikeClick(
+                    btnFeedCommentNormalLike,
+                    comment.isLike,
+                    comment.likeCount,
+                    tvFeedCommentNormalLikeCnt,
+                    comment.commentId,
+                    0,
+                    FeedDetailLikeBtnType.COMMENT_LIKE_BTN,
+                )
             }
-        }
 
-        binding.layoutFeedCommentNormalTotal.setOnClickListener {
-            onItemClick()
+            ivFeedCommentNormalProperty.setOnClickListener {
+                when (comment.isAuthor) {
+                    true ->
+                        onMyCommentPropertyClick(ivFeedCommentNormalProperty, comment.commentId, adapterPosition, comment.authorNickname, comment.content)
+                    false ->
+                        onOtherCommentPropertyClick(ivFeedCommentNormalProperty, comment.commentId, adapterPosition, comment.authorNickname)
+                }
+            }
+
+            layoutFeedCommentNormalTotal.setOnClickListener {
+                onItemClick()
+            }
         }
     }
 
     fun bind(item: Comment) {
-        // Todo(일반 댓글)
         comment = item
         setComment(item)
 
@@ -74,20 +75,22 @@ class FeedCommentNormalViewHolder(
             parentCommentId = item.commentId,
         )
 
-        binding.rvFeedCommentReply.adapter = feedReplyAdapter
-        feedReplyAdapter.submitList(item.childComments)
+        binding.apply {
+            rvFeedCommentReply.adapter = feedReplyAdapter
+            feedReplyAdapter.submitList(item.childComments)
 
-        binding.tvFeedCommentNormalNickname.text = item.authorNickname
-        binding.tvFeedCommentNormalContent.text = item.content
-        binding.tvFeedCommentNormalTime.text = item.createdDate
+            tvFeedCommentNormalNickname.text = item.authorNickname
+            tvFeedCommentNormalContent.text = item.content
+            tvFeedCommentNormalTime.text = item.createdDate
+            btnFeedCommentNormalLike.showLikeBtnIsLike(item.isLike, btnFeedCommentNormalLike)
+            tvFeedCommentNormalLikeCnt.text = item.likeCount.toString()
 
-        binding.btnFeedCommentNormalLike.showLikeBtnIsLike(item.isLike, binding.btnFeedCommentNormalLike)
-        binding.tvFeedCommentNormalLikeCnt.text = item.likeCount.toString()
-
-        if (!item.authorProfileImage.isNullOrBlank()) {
-            GlideUtil.loadImage(itemView.context, item.authorProfileImage, binding.ivFeedCommentNormalProfile)
-        } else {
-            GlideUtil.loadImage(itemView.context, url = null, view = binding.ivFeedCommentNormalProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            if (!item.authorProfileImage.isNullOrBlank()) {
+                GlideUtil.loadImage(itemView.context, item.authorProfileImage, ivFeedCommentNormalProfile)
+            } else {
+                GlideUtil.loadImage(itemView.context, url = null, view = ivFeedCommentNormalProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            }
         }
+
     }
 }
