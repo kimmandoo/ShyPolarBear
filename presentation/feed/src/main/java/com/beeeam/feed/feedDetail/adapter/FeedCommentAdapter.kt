@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.feed.databinding.ItemFeedCommentDeleteBinding
-import com.beeeam.feed.databinding.ItemFeedCommentLoadingBinding
 import com.beeeam.feed.databinding.ItemFeedCommentNormalBinding
 import com.beeeam.util.FeedCommentViewType
 import com.beeeam.util.FeedDetailLikeBtnType
 import com.shypolarbear.domain.model.feed.Comment
 import com.beeeam.feed.feedDetail.viewholder.FeedCommentDeleteViewHolder
-import com.beeeam.feed.feedDetail.viewholder.FeedCommentLoadingViewHolder
 import com.beeeam.feed.feedDetail.viewholder.FeedCommentNormalViewHolder
+import com.beeeam.ui.LoadingViewHolder
+import com.beeeam.ui.databinding.ItemLoadingBinding
 
 class FeedCommentAdapter(
     private val onMyCommentPropertyClick: (view: ImageView, commentId: Int, position: Int, commentAuthor: String, content: String) -> Unit = { _, _, _, _, _ -> },
@@ -38,7 +38,7 @@ class FeedCommentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             FeedCommentViewType.LOADING.commentType -> {
-                FeedCommentLoadingViewHolder(ItemFeedCommentLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+                LoadingViewHolder(ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             }
 
             FeedCommentViewType.NORMAL.commentType -> {
@@ -82,7 +82,6 @@ class FeedCommentAdapter(
                 (holder as FeedCommentDeleteViewHolder).bind(getItem(position))
             }
             getItem(position).commentId == 0 -> {
-                (holder as FeedCommentLoadingViewHolder).bind(getItem(position))
             }
             !getItem(position).isDeleted -> {
                 (holder as FeedCommentNormalViewHolder).bind(getItem(position))

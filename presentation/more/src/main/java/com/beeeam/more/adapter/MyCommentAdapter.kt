@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.myinfo.databinding.ItemPageCommentBinding
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.GlideUtil
 import com.beeeam.util.MyFeedType
 import com.shypolarbear.domain.model.mypage.MyCommentFeed
@@ -40,7 +40,7 @@ class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
             ItemCommentViewHolder(ItemPageCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
             LoadingViewHolder(
-                ItemFeedLoadingBinding.inflate(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,

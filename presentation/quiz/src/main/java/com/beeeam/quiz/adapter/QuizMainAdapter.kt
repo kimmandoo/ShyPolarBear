@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.quiz.databinding.ItemQuizMainRecentFeedBinding
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.GlideUtil
 import com.beeeam.util.MyFeedType
 import com.shypolarbear.domain.model.feed.Feed
@@ -38,7 +38,7 @@ class QuizMainAdapter(private val onMoveToDetailClick: (feedId: Int) -> Unit = {
             ItemRecentFeedViewHolder(ItemQuizMainRecentFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
             LoadingViewHolder(
-                ItemFeedLoadingBinding.inflate(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,

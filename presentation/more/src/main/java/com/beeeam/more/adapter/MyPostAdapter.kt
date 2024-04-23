@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.myinfo.databinding.ItemPagePostBinding
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.GlideUtil
 import com.beeeam.util.MyFeedType
 import com.shypolarbear.domain.model.mypage.MyFeed
@@ -62,7 +62,7 @@ class MyPostAdapter(
             )
         } else {
             LoadingViewHolder(
-                ItemFeedLoadingBinding.inflate(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,
