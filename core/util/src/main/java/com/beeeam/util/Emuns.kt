@@ -35,12 +35,12 @@ enum class FeedViewType(val viewType: Int) {
     ITEM_HAS_NO_IMAGES(2),
 }
 
-enum class WriteChangeDivider(val fragmentType: Int) {
-    WRITE(0),
-    CHANGE(1),
+enum class WriteChangeDivider {
+    WRITE,
+    CHANGE,
 }
 
-enum class FeedTotalLikeBtnType(val itemType: Int) {
+enum class LikeBtnType(val itemType: Int) {
     POST_LIKE_BTN(0),
     BEST_COMMENT_LIKE_BTN(1),
 }
@@ -77,9 +77,9 @@ enum class InputState(val state: Int) {
     OFF(3),
 }
 
-enum class DialogType(val point: String) {
-    REVIEW("REVIEW"),
-    DEFAULT("DEFAULT"),
+enum class DialogType {
+    REVIEW,
+    DEFAULT,
 }
 
 enum class QuizType(val type: String) {
@@ -87,13 +87,13 @@ enum class QuizType(val type: String) {
     OX("OX"),
 }
 
-enum class QuizNavType() {
+enum class QuizNavType {
     MULTI,
     OX,
     MAIN,
 }
 
-enum class MyFeedType(val state: Int) {
+enum class ItemType(val state: Int) {
     ITEM(1),
     LOADING(0),
 }

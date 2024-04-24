@@ -14,8 +14,6 @@ import com.beeeam.feed.R
 import com.beeeam.feed.databinding.FragmentFeedDetailBinding
 import com.beeeam.util.CommentLoadType
 import com.beeeam.util.CommentType
-import com.beeeam.util.Const.POWER_MENU_OFFSET_X
-import com.beeeam.util.Const.POWER_MENU_OFFSET_Y
 import com.beeeam.util.FeedDetailLikeBtnType
 import com.beeeam.util.WriteChangeDivider
 import com.beeeam.util.infiniteScroll

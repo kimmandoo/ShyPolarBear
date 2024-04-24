@@ -13,7 +13,7 @@ import com.beeeam.ranking.viewholder.RankingHeaderViewHolder
 import com.beeeam.ranking.viewholder.RankingItemViewHolder
 import com.beeeam.ranking.viewholder.RankingMyViewHolder
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.RankingItemType
 import com.shypolarbear.domain.model.ranking.Ranking
 
@@ -50,7 +50,7 @@ class RankingAdapter : ListAdapter<Ranking, RecyclerView.ViewHolder>(RankingDiff
             }
             RankingItemType.LOADING.type-> {
                 LoadingViewHolder(
-                    ItemFeedLoadingBinding.inflate(
+                    ItemLoadingBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent,
                         false,

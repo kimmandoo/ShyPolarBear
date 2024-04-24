@@ -63,31 +63,32 @@ class FeedDetailPostViewHolder(
     }
 
     private fun setFeedPost(feedDetail: Feed) {
-        binding.tvFeedDetailUserNickname.text = feedDetail.author
-        binding.tvFeedDetailPostingTime.text = feedDetail.createdDate
-        binding.tvFeedDetailLikeCnt.text = feedDetail.likeCount.toString()
-        binding.tvFeedDetailTitle.text = feedDetail.title
-        binding.tvFeedDetailContent.text = feedDetail.content
-        binding.tvFeedDetailReplyCnt.text = feedDetail.commentCount.toString()
+        binding.apply {
+            tvFeedDetailUserNickname.text = feedDetail.author
+            tvFeedDetailPostingTime.text = feedDetail.createdDate
+            tvFeedDetailLikeCnt.text = feedDetail.likeCount.toString()
+            tvFeedDetailTitle.text = feedDetail.title
+            tvFeedDetailContent.text = feedDetail.content
+            tvFeedDetailReplyCnt.text = feedDetail.commentCount.toString()
+            btnFeedDetailLike.showLikeBtnIsLike(feedDetail.isLike, btnFeedDetailLike)
 
-        binding.btnFeedDetailLike.showLikeBtnIsLike(feedDetail.isLike, binding.btnFeedDetailLike)
-
-        if (!feedDetail.authorProfileImage.isNullOrBlank()) {
-            GlideUtil.loadImage(itemView.context, feedDetail.authorProfileImage, binding.ivFeedDetailUserProfile)
-        } else {
-            GlideUtil.loadImage(itemView.context, url = null, view = binding.ivFeedDetailUserProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
-        }
-
-        with(binding.viewpagerFeedDetailImg) {
-            adapter = ImageViewPagerAdapter().apply {
-                submitList(feedDetail.feedImages)
+            if (!feedDetail.authorProfileImage.isNullOrBlank()) {
+                GlideUtil.loadImage(itemView.context, feedDetail.authorProfileImage, ivFeedDetailUserProfile)
+            } else {
+                GlideUtil.loadImage(itemView.context, url = null, view = ivFeedDetailUserProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
             }
 
-            TabLayoutMediator(
-                binding.tablayoutFeedDetailIndicator,
-                this,
-            ) { _, _ ->
-            }.attach()
+            with(viewpagerFeedDetailImg) {
+                adapter = ImageViewPagerAdapter().apply {
+                    submitList(feedDetail.feedImages)
+                }
+
+                TabLayoutMediator(
+                    tablayoutFeedDetailIndicator,
+                    this,
+                ) { _, _ ->
+                }.attach()
+            }
         }
     }
 }

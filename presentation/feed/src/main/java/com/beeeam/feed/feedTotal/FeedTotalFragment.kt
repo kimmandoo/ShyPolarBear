@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.beeeam.base.BaseFragment
 import com.beeeam.feed.R
 import com.beeeam.feed.databinding.FragmentFeedTotalBinding
-import com.beeeam.util.FeedTotalLikeBtnType
+import com.beeeam.util.LikeBtnType
 import com.beeeam.util.infiniteScroll
 import com.beeeam.util.showLikeBtnIsLike
 import com.beeeam.feed.feedTotal.adapter.FeedPostAdapter
@@ -50,7 +50,7 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
                 textView: TextView,
                 feedId: Int,
                 commentId: Int?,
-                itemType: FeedTotalLikeBtnType, ->
+                itemType: LikeBtnType, ->
             changeLikeBtn(btn, isLiked, likeCnt, textView, feedId, commentId, itemType)
         },
         onMoveToDetailClick = { feedId: Int -> showFeedPostDetail(feedId) },
@@ -228,7 +228,7 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
         likeCntText: TextView,
         feedId: Int,
         commentId: Int?,
-        itemType: FeedTotalLikeBtnType,
+        itemType: LikeBtnType,
     ) {
         var isLike = isLiked
         var likeCount = likeCnt
@@ -241,10 +241,10 @@ class FeedTotalFragment : BaseFragment<FragmentFeedTotalBinding, FeedTotalViewMo
         }
 
         when (itemType) {
-            FeedTotalLikeBtnType.POST_LIKE_BTN ->
+            LikeBtnType.POST_LIKE_BTN ->
                 viewModel.clickFeedLikeBtn(isLike, likeCount, feedId)
 
-            FeedTotalLikeBtnType.BEST_COMMENT_LIKE_BTN ->
+            LikeBtnType.BEST_COMMENT_LIKE_BTN ->
                 viewModel.clickFeedBestCommentLikeBtn(isLike, likeCount, commentId!!)
         }
 

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.quiz.databinding.ItemQuizMainRecentFeedBinding
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.GlideUtil
-import com.beeeam.util.MyFeedType
+import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.feed.Feed
 
 class QuizMainAdapter(private val onMoveToDetailClick: (feedId: Int) -> Unit = { _ -> }) :
@@ -30,15 +30,15 @@ class QuizMainAdapter(private val onMoveToDetailClick: (feedId: Int) -> Unit = {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (currentList[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
+        return if (currentList[position] != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == MyFeedType.ITEM.state) {
+        return if (viewType == ItemType.ITEM.state) {
             ItemRecentFeedViewHolder(ItemQuizMainRecentFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
             LoadingViewHolder(
-                ItemFeedLoadingBinding.inflate(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,

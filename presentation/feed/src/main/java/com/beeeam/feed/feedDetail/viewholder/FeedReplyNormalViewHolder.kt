@@ -29,31 +29,31 @@ class FeedReplyNormalViewHolder(
     private var childComment: ChildComment = ChildComment()
 
     init {
-        binding.btnFeedReplyNormalLike.setOnClickListener {
-            onBtnLikeClick(
-                binding.btnFeedReplyNormalLike,
-                childComment.isLike,
-                childComment.likeCount,
-                binding.tvFeedReplyNormalLikeCnt,
-                parentCommentId,
-                childComment.commentId,
-                FeedDetailLikeBtnType.REPLY_LIKE_BTN,
-            )
-        }
+        binding.apply {
+            btnFeedReplyNormalLike.setOnClickListener {
+                onBtnLikeClick(
+                    btnFeedReplyNormalLike,
+                    childComment.isLike,
+                    childComment.likeCount,
+                    tvFeedReplyNormalLikeCnt,
+                    parentCommentId,
+                    childComment.commentId,
+                    FeedDetailLikeBtnType.REPLY_LIKE_BTN,
+                )
+            }
 
-        binding.ivFeedReplyNormalProperty.setOnClickListener {
-            when (childComment.isAuthor) {
-                true ->
-                    onMyReplyPropertyClick(binding.ivFeedReplyNormalProperty, childComment.commentId, 0, childComment.content)
-                false ->
-                    onOtherReplyPropertyClick(binding.ivFeedReplyNormalProperty)
+            ivFeedReplyNormalProperty.setOnClickListener {
+                when (childComment.isAuthor) {
+                    true ->
+                        onMyReplyPropertyClick(ivFeedReplyNormalProperty, childComment.commentId, 0, childComment.content)
+                    false ->
+                        onOtherReplyPropertyClick(ivFeedReplyNormalProperty)
+                }
             }
         }
     }
 
     fun bind(item: ChildComment) {
-        // Todo(일반 대댓글)
-
         childComment = item
         setReply(item)
 
@@ -61,17 +61,18 @@ class FeedReplyNormalViewHolder(
     }
 
     private fun setReply(item: ChildComment) {
-        binding.tvFeedReplyNormalNickname.text = item.authorNickname
-        binding.tvFeedReplyNormalContent.text = item.content
-        binding.tvFeedReplyNormalTime.text = item.createdDate
+        binding.apply {
+            tvFeedReplyNormalNickname.text = item.authorNickname
+            tvFeedReplyNormalContent.text = item.content
+            tvFeedReplyNormalTime.text = item.createdDate
+            btnFeedReplyNormalLike.showLikeBtnIsLike(item.isLike, btnFeedReplyNormalLike)
+            tvFeedReplyNormalLikeCnt.text = item.likeCount.toString()
 
-        binding.btnFeedReplyNormalLike.showLikeBtnIsLike(item.isLike, binding.btnFeedReplyNormalLike)
-        binding.tvFeedReplyNormalLikeCnt.text = item.likeCount.toString()
-
-        if (!item.authorProfileImage.isNullOrBlank()) {
-            GlideUtil.loadImage(itemView.context, item.authorProfileImage, binding.ivFeedReplyNormalProfile)
-        } else {
-            GlideUtil.loadImage(itemView.context, url = null, view = binding.ivFeedReplyNormalProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            if (!item.authorProfileImage.isNullOrBlank()) {
+                GlideUtil.loadImage(itemView.context, item.authorProfileImage, ivFeedReplyNormalProfile)
+            } else {
+                GlideUtil.loadImage(itemView.context, url = null, view = ivFeedReplyNormalProfile, placeHolder = com.beeeam.designsystem.R.drawable.ic_user_base_profile)
+            }
         }
     }
 }

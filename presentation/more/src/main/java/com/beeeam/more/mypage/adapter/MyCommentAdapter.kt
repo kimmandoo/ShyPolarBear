@@ -1,46 +1,29 @@
-package com.beeeam.more.adapter
+package com.beeeam.more.mypage.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.beeeam.more.mypage.viewholder.ItemCommentViewHolder
 import com.beeeam.myinfo.databinding.ItemPageCommentBinding
 import com.beeeam.ui.LoadingViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
-import com.beeeam.util.GlideUtil
-import com.beeeam.util.MyFeedType
+import com.beeeam.ui.databinding.ItemLoadingBinding
+import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.mypage.MyCommentFeed
 
-class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
-    ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
-
-    inner class ItemCommentViewHolder(private val binding: ItemPageCommentBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bindItems(item: MyCommentFeed) {
-            binding.apply {
-                tvItemPage.text = item.title
-                item.feedImage?.let { image ->
-                    GlideUtil.loadImage(binding.root.context, image, ivItemPage)
-                }
-                tvItemAuthor.text = item.author
-                item.authorProfileImage?.let { image ->
-                    GlideUtil.loadImage(binding.root.context, image, ivItemProfile)
-                }
-            }
-        }
-    }
+class MyCommentAdapter: ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (_items[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
+        return if (getItem(position) != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == MyFeedType.ITEM.state) {
+        return if (viewType == ItemType.ITEM.state) {
             ItemCommentViewHolder(ItemPageCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
             LoadingViewHolder(
-                ItemFeedLoadingBinding.inflate(
+                ItemLoadingBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false,
@@ -50,13 +33,11 @@ class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ItemCommentViewHolder) {
-            holder.bindItems(_items[position]!!)
-        }
+        (holder as ItemCommentViewHolder).bind(getItem(position)!!)
     }
 
     override fun getItemCount(): Int {
-        return _items.size
+        return currentList.size
     }
 }
 

@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.feed.databinding.ItemFeedBinding
 import com.beeeam.feed.databinding.ItemFeedNoImageBinding
-import com.beeeam.util.FeedTotalLikeBtnType
+import com.beeeam.util.LikeBtnType
 import com.beeeam.util.FeedViewType
 import com.shypolarbear.domain.model.feed.Feed
-import com.beeeam.feed.feedTotal.viewholder.FeedLoadingViewHolder
 import com.beeeam.feed.feedTotal.viewholder.FeedPostNoImageViewHolder
 import com.beeeam.feed.feedTotal.viewholder.FeedPostViewHolder
-import com.beeeam.ui.databinding.ItemFeedLoadingBinding
+import com.beeeam.ui.LoadingViewHolder
+import com.beeeam.ui.databinding.ItemLoadingBinding
 
 class FeedPostAdapter(
     private val onMyPostPropertyClick: (view: ImageView, feedId: Int, position: Int) -> Unit = { _, _, _ -> },
@@ -31,7 +31,7 @@ class FeedPostAdapter(
         textView: TextView,
         feedId: Int,
         commentId: Int?,
-        itemType: FeedTotalLikeBtnType,
+        itemType: LikeBtnType,
     ) -> Unit = { _, _, _, _, _, _, _ -> },
     private val onMoveToDetailClick: (feedId: Int) -> Unit = { _ -> },
 ) : ListAdapter<Feed, RecyclerView.ViewHolder>(FeedPostDiffCallback()) {
@@ -39,8 +39,8 @@ class FeedPostAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             FeedViewType.LOADING.viewType -> {
-                return FeedLoadingViewHolder(
-                    ItemFeedLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+                return LoadingViewHolder(
+                    ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false),
                 )
             }
             FeedViewType.ITEM_HAS_IMAGES.viewType -> {
@@ -74,7 +74,7 @@ class FeedPostAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when {
             getItem(position).feedId == 0 -> {
-                (holder as FeedLoadingViewHolder).bind()
+
             }
             getItem(position).feedImages.isNullOrEmpty() -> {
                 (holder as FeedPostNoImageViewHolder).bind(getItem(position))
