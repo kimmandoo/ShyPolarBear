@@ -81,8 +81,7 @@ class FeedCommentAdapter(
             getItem(position).isDeleted -> {
                 (holder as FeedCommentDeleteViewHolder).bind(getItem(position))
             }
-            getItem(position).commentId == 0 -> {
-            }
+            getItem(position).commentId == 0 -> {}
             !getItem(position).isDeleted -> {
                 (holder as FeedCommentNormalViewHolder).bind(getItem(position))
             }

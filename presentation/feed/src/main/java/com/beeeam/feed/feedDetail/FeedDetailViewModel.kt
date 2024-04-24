@@ -62,8 +62,7 @@ class FeedDetailViewModel @Inject constructor(
                 .onSuccess {
                     _feed.value = it.data
                 }
-                .onFailure {
-                }
+                .onFailure { }
         }
     }
 
@@ -89,8 +88,8 @@ class FeedDetailViewModel @Inject constructor(
 
                     commentIsLast = it.data.last
 
-                    when {
-                        commentLoadType == CommentLoadType.INIT -> { _feedComment.value = newDataList }
+                    when (commentLoadType) {
+                        CommentLoadType.INIT -> { _feedComment.value = newDataList }
                         else -> { _feedComment.value = removeProgressList + newDataList
                         }
                     }

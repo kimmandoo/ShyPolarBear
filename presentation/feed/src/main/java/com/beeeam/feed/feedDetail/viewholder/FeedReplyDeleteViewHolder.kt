@@ -6,7 +6,7 @@ import com.shypolarbear.domain.model.feed.feedDetail.ChildComment
 
 class FeedReplyDeleteViewHolder(private val binding: ItemFeedReplyDeleteBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(comment: ChildComment) {
+    fun bind() {
         binding.executePendingBindings()
     }
 }

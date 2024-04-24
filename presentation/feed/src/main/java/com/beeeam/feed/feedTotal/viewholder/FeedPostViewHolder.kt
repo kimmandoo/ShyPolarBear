@@ -10,7 +10,7 @@ import androidx.viewpager2.widget.MarginPageTransformer
 import com.beeeam.feed.databinding.ItemFeedBinding
 import com.beeeam.ui.ImageViewPagerAdapter
 import com.beeeam.util.Const.DEFAULT_COMMENT_ID
-import com.beeeam.util.FeedTotalLikeBtnType
+import com.beeeam.util.LikeBtnType
 import com.beeeam.util.GlideUtil
 import com.beeeam.util.showLikeBtnIsLike
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,7 +29,7 @@ class FeedPostViewHolder(
         textView: TextView,
         feedId: Int,
         commentId: Int?,
-        itemType: FeedTotalLikeBtnType,
+        itemType: LikeBtnType,
     ) -> Unit = { _, _, _, _, _, _, _ -> },
     private val onMoveToDetailClick: (feedId: Int) -> Unit = { _ -> },
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -66,7 +66,7 @@ class FeedPostViewHolder(
                 binding.tvFeedPostLikeCnt,
                 post.feedId,
                 null,
-                FeedTotalLikeBtnType.POST_LIKE_BTN,
+                LikeBtnType.POST_LIKE_BTN,
             )
         }
 
@@ -78,7 +78,7 @@ class FeedPostViewHolder(
                 binding.tvFeedPostBestCommentLikeCnt,
                 post.feedId,
                 post.comment.commentId,
-                FeedTotalLikeBtnType.BEST_COMMENT_LIKE_BTN,
+                LikeBtnType.BEST_COMMENT_LIKE_BTN,
             )
         }
     }

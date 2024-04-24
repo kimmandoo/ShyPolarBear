@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.feed.databinding.ItemFeedBinding
 import com.beeeam.feed.databinding.ItemFeedNoImageBinding
-import com.beeeam.util.FeedTotalLikeBtnType
+import com.beeeam.util.LikeBtnType
 import com.beeeam.util.FeedViewType
 import com.shypolarbear.domain.model.feed.Feed
 import com.beeeam.feed.feedTotal.viewholder.FeedPostNoImageViewHolder
@@ -31,7 +31,7 @@ class FeedPostAdapter(
         textView: TextView,
         feedId: Int,
         commentId: Int?,
-        itemType: FeedTotalLikeBtnType,
+        itemType: LikeBtnType,
     ) -> Unit = { _, _, _, _, _, _, _ -> },
     private val onMoveToDetailClick: (feedId: Int) -> Unit = { _ -> },
 ) : ListAdapter<Feed, RecyclerView.ViewHolder>(FeedPostDiffCallback()) {

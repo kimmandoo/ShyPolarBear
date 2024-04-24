@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.feed.databinding.ItemFeedNoImageBinding
-import com.beeeam.util.FeedTotalLikeBtnType
+import com.beeeam.util.LikeBtnType
 import com.beeeam.util.GlideUtil
 import com.beeeam.util.showLikeBtnIsLike
 import com.shypolarbear.domain.model.feed.Feed
@@ -25,7 +25,7 @@ class FeedPostNoImageViewHolder(
         textView: TextView,
         feedId: Int,
         commentId: Int?,
-        itemType: FeedTotalLikeBtnType,
+        itemType: LikeBtnType,
     ) -> Unit = { _, _, _, _, _, _, _ -> },
     private val onMoveToDetailClick: (feedId: Int) -> Unit = { _ -> },
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -62,7 +62,7 @@ class FeedPostNoImageViewHolder(
                 binding.tvFeedPostNoImageLikeCnt,
                 post.feedId,
                 null,
-                FeedTotalLikeBtnType.POST_LIKE_BTN,
+                LikeBtnType.POST_LIKE_BTN,
             )
         }
 
@@ -74,7 +74,7 @@ class FeedPostNoImageViewHolder(
                 binding.tvFeedPostNoImageBestCommentLikeCnt,
                 post.feedId,
                 post.comment.commentId,
-                FeedTotalLikeBtnType.BEST_COMMENT_LIKE_BTN,
+                LikeBtnType.BEST_COMMENT_LIKE_BTN,
             )
         }
     }

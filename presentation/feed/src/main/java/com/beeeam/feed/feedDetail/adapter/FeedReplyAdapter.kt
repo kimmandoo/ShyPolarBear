@@ -65,7 +65,7 @@ class FeedReplyAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItem(position).isDeleted) {
             true -> {
-                (holder as FeedReplyDeleteViewHolder).bind(getItem(position))
+                (holder as FeedReplyDeleteViewHolder).bind()
             }
             false -> {
                 (holder as FeedReplyNormalViewHolder).bind(getItem(position))
@@ -74,8 +74,7 @@ class FeedReplyAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        val reply: ChildComment = getItem(position)
-        return if (reply.isDeleted) {
+        return if (getItem(position).isDeleted) {
             FeedCommentViewType.DELETE.commentType
         } else {
             FeedCommentViewType.NORMAL.commentType

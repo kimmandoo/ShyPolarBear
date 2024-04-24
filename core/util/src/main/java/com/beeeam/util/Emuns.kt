@@ -40,7 +40,7 @@ enum class WriteChangeDivider(val fragmentType: Int) {
     CHANGE(1),
 }
 
-enum class FeedTotalLikeBtnType(val itemType: Int) {
+enum class LikeBtnType(val itemType: Int) {
     POST_LIKE_BTN(0),
     BEST_COMMENT_LIKE_BTN(1),
 }
@@ -87,7 +87,7 @@ enum class QuizType(val type: String) {
     OX("OX"),
 }
 
-enum class QuizNavType() {
+enum class QuizNavType {
     MULTI,
     OX,
     MAIN,
