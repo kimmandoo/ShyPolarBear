@@ -9,18 +9,18 @@ import com.beeeam.more.mypage.viewholder.ItemCommentViewHolder
 import com.beeeam.myinfo.databinding.ItemPageCommentBinding
 import com.beeeam.ui.LoadingViewHolder
 import com.beeeam.ui.databinding.ItemLoadingBinding
-import com.beeeam.util.MyFeedType
+import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.mypage.MyCommentFeed
 
 class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
     ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (_items[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
+        return if (_items[position] != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == MyFeedType.ITEM.state) {
+        return if (viewType == ItemType.ITEM.state) {
             ItemCommentViewHolder(ItemPageCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         } else {
             LoadingViewHolder(

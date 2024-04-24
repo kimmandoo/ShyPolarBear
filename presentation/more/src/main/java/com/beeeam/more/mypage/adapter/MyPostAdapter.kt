@@ -10,7 +10,7 @@ import com.beeeam.more.mypage.viewholder.ItemPostViewHolder
 import com.beeeam.myinfo.databinding.ItemPagePostBinding
 import com.beeeam.ui.LoadingViewHolder
 import com.beeeam.ui.databinding.ItemLoadingBinding
-import com.beeeam.util.MyFeedType
+import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.mypage.MyFeed
 
 class MyPostAdapter(
@@ -20,11 +20,11 @@ class MyPostAdapter(
     ListAdapter<MyFeed, RecyclerView.ViewHolder>(MyFeedDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (_items[position] != null) MyFeedType.ITEM.state else MyFeedType.LOADING.state
+        return if (_items[position] != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == MyFeedType.ITEM.state) {
+        return if (viewType == ItemType.ITEM.state) {
             ItemPostViewHolder(
                 ItemPagePostBinding.inflate(
                     LayoutInflater.from(parent.context),
