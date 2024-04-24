@@ -14,13 +14,11 @@ import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.mypage.MyFeed
 
 class MyPostAdapter(
-    private val _items: List<MyFeed?>,
     private val onMyFeedPropertyClick: (feedId: Int, view: ImageView) -> Unit = { _, _ -> },
-) :
-    ListAdapter<MyFeed, RecyclerView.ViewHolder>(MyFeedDiffCallback()) {
+) : ListAdapter<MyFeed, RecyclerView.ViewHolder>(MyFeedDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (_items[position] != null) ItemType.ITEM.state else ItemType.LOADING.state
+        return if (getItem(position) != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -45,11 +43,11 @@ class MyPostAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ItemPostViewHolder).bind(_items[position]!!)
+        (holder as ItemPostViewHolder).bind(getItem(position)!!)
     }
 
     override fun getItemCount(): Int {
-        return _items.size
+        return currentList.size
     }
 }
 

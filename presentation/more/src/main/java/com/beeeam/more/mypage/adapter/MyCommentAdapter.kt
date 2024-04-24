@@ -12,11 +12,10 @@ import com.beeeam.ui.databinding.ItemLoadingBinding
 import com.beeeam.util.ItemType
 import com.shypolarbear.domain.model.mypage.MyCommentFeed
 
-class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
-    ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
+class MyCommentAdapter: ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (_items[position] != null) ItemType.ITEM.state else ItemType.LOADING.state
+        return if (getItem(position) != null) ItemType.ITEM.state else ItemType.LOADING.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,11 +33,11 @@ class MyCommentAdapter(private val _items: List<MyCommentFeed?>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ItemCommentViewHolder).bind(_items[position]!!)
+        (holder as ItemCommentViewHolder).bind(getItem(position)!!)
     }
 
     override fun getItemCount(): Int {
-        return _items.size
+        return currentList.size
     }
 }
 

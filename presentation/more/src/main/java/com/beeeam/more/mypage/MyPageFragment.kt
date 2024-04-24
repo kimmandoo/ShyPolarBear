@@ -24,29 +24,32 @@ import dagger.hilt.android.AndroidEntryPoint
 class MyPageFragment :
     BaseFragment<FragmentMyPageBinding, MyPageViewModel>(R.layout.fragment_my_page) {
     override val viewModel: MyPageViewModel by viewModels()
-    private lateinit var postAdapter: Adapter<ViewHolder>
-    private lateinit var commentAdapter: Adapter<ViewHolder>
+    private val postAdapter = MyPostAdapter(
+        onMyFeedPropertyClick = { feedId: Int, view: ImageView ->
+            showMyPostPropertyMenu(feedId, view)
+        }
+    )
+    private val commentAdapter = MyCommentAdapter()
 
     override fun initView() {
 
         binding.apply {
             viewModel.loadMyFeed()
+            setAdapter(postAdapter, FeedContentType.POST)
+
             viewModel.myPostResponse.observe(viewLifecycleOwner) { postFeed ->
                 postFeed?.let {
                     myFeedProgressbar.isVisible = false
                     if (it.count != 0) {
                         tvMyPostNonPost.isVisible = false
                     }
-                    postAdapter = MyPostAdapter(postFeed.content) { feedId: Int, view: ImageView ->
-                        showMyPostPropertyMenu(view, feedId)
-                    }
-                    setAdapter(postAdapter, FeedContentType.POST)
+                    postAdapter.submitList(postFeed.content)
                 }
             }
 
             viewModel.myCommentResponse.observe(viewLifecycleOwner) { commentFeed ->
                 commentFeed?.let {
-                    commentAdapter = MyCommentAdapter(commentFeed.content)
+                    commentAdapter.submitList(commentFeed.content)
                 }
             }
 
@@ -84,7 +87,7 @@ class MyPageFragment :
         }
     }
 
-    private fun showMyPostPropertyMenu(view: ImageView, feedId: Int) {
+    private fun showMyPostPropertyMenu(feedId: Int, view: ImageView) {
         val myPostPropertyItems: List<PowerMenuItem> =
             listOf(
                 PowerMenuItem(requireContext().getString(com.beeeam.designsystem.R.string.feed_post_property_revise)),
