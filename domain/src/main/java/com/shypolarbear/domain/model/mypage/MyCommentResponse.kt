@@ -13,10 +13,10 @@ data class MyComment(
 )
 
 data class MyCommentFeed(
-    val feedId: Int,
-    val title: String,
+    val feedId: Int = 0,
+    val title: String = "",
     val feedImage: String? = null,
-    val author: String,
+    val author: String = "",
     val authorProfileImage: String? = null,
-    val commentId: Int,
+    val commentId: Int = 0,
 )
