@@ -18,7 +18,7 @@ class MyPostAdapter(
 ) : ListAdapter<MyFeed, RecyclerView.ViewHolder>(MyFeedDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position) != null) ItemType.ITEM.state else ItemType.LOADING.state
+        return if (getItem(position).feedId == 0) ItemType.LOADING.state else ItemType.ITEM.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -43,7 +43,9 @@ class MyPostAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ItemPostViewHolder).bind(getItem(position)!!)
+        if (getItem(position).feedId != 0) {
+            (holder as ItemPostViewHolder).bind(getItem(position)!!)
+        }
     }
 
     override fun getItemCount(): Int {

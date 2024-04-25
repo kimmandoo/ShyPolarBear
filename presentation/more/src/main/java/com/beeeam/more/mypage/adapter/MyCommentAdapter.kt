@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.beeeam.more.mypage.viewholder.ItemCommentViewHolder
+import com.beeeam.more.mypage.viewholder.ItemPostViewHolder
 import com.beeeam.myinfo.databinding.ItemPageCommentBinding
 import com.beeeam.ui.LoadingViewHolder
 import com.beeeam.ui.databinding.ItemLoadingBinding
@@ -15,7 +16,7 @@ import com.shypolarbear.domain.model.mypage.MyCommentFeed
 class MyCommentAdapter: ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCommentDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position) != null) ItemType.ITEM.state else ItemType.LOADING.state
+        return if (getItem(position).feedId == 0) ItemType.LOADING.state else ItemType.ITEM.state
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -33,7 +34,9 @@ class MyCommentAdapter: ListAdapter<MyCommentFeed, RecyclerView.ViewHolder>(MyCo
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as ItemCommentViewHolder).bind(getItem(position)!!)
+        if (getItem(position).feedId != 0) {
+            (holder as ItemCommentViewHolder).bind(getItem(position)!!)
+        }
     }
 
     override fun getItemCount(): Int {

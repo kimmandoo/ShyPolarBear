@@ -13,7 +13,7 @@ data class MyPost(
 )
 
 data class MyFeed(
-    val feedId: Int,
-    val title: String,
-    val feedImage: String,
+    val feedId: Int = 0,
+    val title: String = "",
+    val feedImage: String = "",
 )

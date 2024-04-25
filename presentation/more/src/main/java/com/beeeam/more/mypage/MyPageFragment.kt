@@ -50,10 +50,12 @@ class MyPageFragment :
                     if (myPostList.isEmpty()) {
                         myPostList = postFeed.content.toMutableList()
                     } else {
+                        myPostList.removeLast()
                         postFeed.content.forEach { post ->
                             myPostList.add(post)
                         }
                     }
+                    if (!postFeed.last) myPostList.add(MyFeed())
                     postAdapter.submitList(myPostList.toList())
                 }
             }
@@ -63,10 +65,12 @@ class MyPageFragment :
                     if (myCommentList.isEmpty()) {
                         myCommentList = commentFeed.content.toMutableList()
                     } else {
+                        myCommentList.removeLast()
                         commentFeed.content.forEach { commentFeed ->
                             myCommentList.add(commentFeed)
                         }
                     }
+                    if (!commentFeed.last) myCommentList.add(MyCommentFeed())
                     commentAdapter.submitList(myCommentList.toList())
                 }
             }
