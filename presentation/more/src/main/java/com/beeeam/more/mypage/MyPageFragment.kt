@@ -17,6 +17,8 @@ import com.beeeam.util.PostProperty
 import com.beeeam.util.PowerMenuUtil
 import com.beeeam.util.createNavDeepLinkRequest
 import com.beeeam.util.infiniteScroll
+import com.shypolarbear.domain.model.mypage.MyCommentFeed
+import com.shypolarbear.domain.model.mypage.MyFeed
 import com.skydoves.powermenu.PowerMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +32,8 @@ class MyPageFragment :
         }
     )
     private val commentAdapter = MyCommentAdapter()
+    private var myPostList = mutableListOf<MyFeed>()
+    private var myCommentList = mutableListOf<MyCommentFeed>()
 
     override fun initView() {
 
@@ -43,13 +47,27 @@ class MyPageFragment :
                     if (it.count != 0) {
                         tvMyPostNonPost.isVisible = false
                     }
-                    postAdapter.submitList(postFeed.content)
+                    if (myPostList.isEmpty()) {
+                        myPostList = postFeed.content.toMutableList()
+                    } else {
+                        postFeed.content.forEach { post ->
+                            myPostList.add(post)
+                        }
+                    }
+                    postAdapter.submitList(myPostList.toList())
                 }
             }
 
             viewModel.myCommentResponse.observe(viewLifecycleOwner) { commentFeed ->
                 commentFeed?.let {
-                    commentAdapter.submitList(commentFeed.content)
+                    if (myCommentList.isEmpty()) {
+                        myCommentList = commentFeed.content.toMutableList()
+                    } else {
+                        commentFeed.content.forEach { commentFeed ->
+                            myCommentList.add(commentFeed)
+                        }
+                    }
+                    commentAdapter.submitList(myCommentList.toList())
                 }
             }
 
